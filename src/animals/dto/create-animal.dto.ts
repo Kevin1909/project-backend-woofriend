@@ -26,7 +26,6 @@ export class CreateAnimalDto {
 
     @IsString()
     @MinLength(10)
-    @MaxLength(100)
     characteristics: string;
 
     @IsString()

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, UploadedFile, UseInterceptors, BadRequestException, Res } from '@nestjs/common';
+import { Controller, Get, Post, Param, UploadedFile, UseInterceptors, BadRequestException, Res, Body,  } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 //import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -52,30 +52,31 @@ export class FilesController {
   }
 
 
-
   @Post('animal')
   @UseInterceptors( FileInterceptor('file', {
     fileFilter: fileFilter,
-    // limits: { fileSize: 1000 }
+    //limits: { fileSize: 1000 },
     storage: diskStorage({
       destination: './static/animals',
       filename: fileNamer
     })
   }) )
   uploadAnimalImage( 
-    @UploadedFile() file: Express.Multer.File,
-  ){
+    @UploadedFile() file: Express.Multer.File, 
 
+    
+  ){
+    
     if ( !file ) {
       throw new BadRequestException('Make sure that the file is an image');
     }
     // const secureUrl = `${ file.filename }`;
-    const secureUrl = `${ this.configService.get('HOST_API') }/files/animal/${ file.filename }`;
+    const image = `${ this.configService.get('HOST_API') }/files/animals/${ file.filename}`;
 
-    return { secureUrl };
+    return { secureUrl: image };
   }
 
-  @Post('profile')
+  /*@Post('profile')
   @UseInterceptors( FileInterceptor('file', {
     fileFilter: fileFilter,
     // limits: { fileSize: 1000 }
@@ -119,6 +120,6 @@ export class FilesController {
     const secureUrl = `${ this.configService.get('HOST_API') }/files/publication/${ file.filename }`;
 
     return { secureUrl };
-  }
+  }*/
 
 }

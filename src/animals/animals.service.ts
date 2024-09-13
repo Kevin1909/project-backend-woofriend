@@ -57,7 +57,7 @@ export class AnimalsService {
     const { limit = 10, offset = 0 } = paginationDto;
 
     const animals = await this.animalRepository.find({
-      take: limit,
+      take:limit,
       skip: offset,
       relations: {
         user: true,
