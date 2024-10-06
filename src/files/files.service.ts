@@ -38,4 +38,20 @@ export class FilesService {
     }
 
 
+    deleteStaticAnimalImage(imageName: string){
+        const fs = require('fs');
+        const path = join( __dirname, '../../static/animals', imageName );
+
+
+        fs.unlink(path, (err) => {
+        if (err) {
+        console.error('Error al eliminar el archivo:', err);
+        return;
+        }
+        console.log('Archivo eliminado con éxito');
+        });
+
+    }
+
+
 }

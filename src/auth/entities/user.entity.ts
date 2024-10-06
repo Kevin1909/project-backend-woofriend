@@ -5,7 +5,6 @@ import { Donation } from 'src/donations/entities/donation.entity';
 import { Publication } from 'src/publications/entities/publication.entity';
 
 import { Animal } from 'src/animals/entities/animal.entity';
-import { Profile } from 'src/user-profile/entities/profile.entity';
 
 
 
@@ -43,13 +42,26 @@ export class User {
     })
     roles: string[];
 
-    @OneToOne(
-        () => Profile,
-        ( profile ) => profile.user,
-        {cascade: true}
-        
-    )
-    profile?: Profile;
+    @Column('text', {
+        nullable: true
+    })
+    firstcontent: string;
+
+    @Column('text', {
+        nullable: true
+    })
+    secondcontent: string;
+
+    @Column('text', {
+        nullable: true
+    })
+    thirdcontent: string;
+
+    @Column('text', {
+        nullable: true
+    })
+    photo: string;
+
 
     @OneToMany(
         () => formAdoption,
@@ -86,7 +98,6 @@ export class User {
     @BeforeInsert()
     checkFieldsBeforeInsert() {
         this.email = this.email.toLowerCase().trim();
-        this.name = this.name.toLowerCase().trim();
     }
 
     @BeforeUpdate()

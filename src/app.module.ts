@@ -7,7 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FormAdoptionModule } from './form-adoption/form-adoption.module';
 import { FilesModule } from './files/files.module';
-import { ProfilesModule } from './user-profile/profiles.module';
+
 
 
 
@@ -35,7 +35,7 @@ import { ProfilesModule } from './user-profile/profiles.module';
     AuthModule, 
     AnimalsModule, 
     PublicationsModule, 
-    DonationsModule, FormAdoptionModule, ProfilesModule,
+    DonationsModule, FormAdoptionModule,
     FilesModule
   ],
   controllers: [],

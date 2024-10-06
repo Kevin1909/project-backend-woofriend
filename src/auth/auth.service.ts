@@ -24,11 +24,13 @@ export class AuthService {
   ) {}
 
 
+
   async create( createUserDto: CreateUserDto) {
     
     try {
 
       const { password, ...userData } = createUserDto;
+
       
       const user = this.userRepository.create({
         ...userData,
@@ -36,11 +38,11 @@ export class AuthService {
       });
 
       await this.userRepository.save( user )
-      delete user.password;
+      delete(user.password)
+  
 
       return {
         ...user,
-        token: this.getJwtToken({ id: user.id })
       };
       // TODO: Retornar el JWT de acceso
 
@@ -57,9 +59,6 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
-      relations: {
-        profile: true
-      }
 
     });
     if ( !user ) 
@@ -67,6 +66,7 @@ export class AuthService {
       
     if ( !bcrypt.compareSync( password, user.password ) )
       throw new UnauthorizedException('Credentials are not valid (password)');
+    bcrypt.getRounds
 
     return {
       ...user,
@@ -93,16 +93,14 @@ export class AuthService {
   }
 
 
+
+
   async findByFilter( term: string) {
 
     const user = await this.userRepository.find({
       where:{
         name: ILike(`%${term}%`),
       },
-      relations: {
-        profile: true
-      }
-      
     })
 
     return user
@@ -110,34 +108,10 @@ export class AuthService {
   }
 
 
-  async findProfile( id: string ) {
-
-    try {
-      const userProfile = await this.userRepository.findOne({
-        where: {
-          id: id
-        },
-        relations: {
-          profile: true
-          
-        },
-        
-      })
-
-      const profile = userProfile.profile
-      return profile
-
-
-    } catch (error) {
-      throw new NotFoundException(`Profile with ${ id } not found`);
-    
-    }
-  }
-
-  async updateUser (id: string,  updateUserDto: UpdateUserDto){
+  async updateUser (id: string,  createUserDto: CreateUserDto){
 
     let passwordCrypt = '';
-    const { password, ...Data } = updateUserDto;
+    const { password, ...Data } = createUserDto;
 
     if (password) { 
       passwordCrypt = bcrypt.hashSync( password, 10 ) 
@@ -163,6 +137,10 @@ export class AuthService {
       await queryRunner.manager.save( user );
       await queryRunner.commitTransaction();
       await queryRunner.release();
+      return {
+        ...user,
+        token: this.getJwtToken({ id: user.id })
+      };
 
       
       
@@ -179,6 +157,7 @@ export class AuthService {
 
     const user = await this.userRepository.findOneBy({id});
     await this.userRepository.remove(  user, );
+    return true;
   }
 
   private handleDBErrors( error: any ): never {

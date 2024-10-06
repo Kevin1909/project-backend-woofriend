@@ -36,28 +36,20 @@ export class AuthController {
   }
 
   @Get('/filter/:term')
-  @Auth()
   findOneFilter(@Param( 'term' ) term: string) {
     return this.authService.findByFilter( term );
   }
 
-  @Get('/profile/:id')
-  @Auth()
-  findProfile(@Param( 'id' ) id: string) {
-    return this.authService.findProfile( id );
-  }
 
   @Patch(':id')
-  @Auth()
   update(
     @Param('id', ParseUUIDPipe ) id: string, 
-    @Body() updateUserDto: UpdateUserDto,
+    @Body() CreateUserDto: CreateUserDto,
   ){
-    return this.authService.updateUser( id, updateUserDto);
+    return this.authService.updateUser( id, CreateUserDto);
   }
 
   @Delete(':id')
-  @Auth()
   remove(@Param('id', ParseUUIDPipe ) id: string) {
     return this.authService.deleteUser( id );
   }
