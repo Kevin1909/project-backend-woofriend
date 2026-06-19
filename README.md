@@ -1,73 +1,69 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# WoofFriend — Backend (API REST)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API REST para **WoofFriend**, una plataforma de adopción de mascotas. Gestiona el registro y autenticación de usuarios, la publicación de animales en adopción, los formularios de adopción, donaciones y publicaciones, incluyendo la carga de imágenes.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Proyecto desarrollado como trabajo de grado del Tecnólogo en Desarrollo de Software (SENA).
 
-## Description
+**Autor:** Kevin Lievano · lvrd07@gmail.com
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Installation
+## Tecnologías
 
-```bash
-$ npm install
-```
+- **NestJS** (Node.js + TypeScript)
+- **PostgreSQL** con **TypeORM**
+- **Docker / Docker Compose** (base de datos)
+- **JWT + Passport** para autenticación
+- **bcrypt** para el hash de contraseñas
+- **class-validator / class-transformer** para validación de DTOs
+- **Multer** para la carga de archivos (imágenes)
+- **Swagger** para la documentación de la API
 
-## Running the app
+## Módulos principales
 
-```bash
-# development
-$ npm run start
+- `auth` — registro, login y protección de rutas con JWT.
+- `animals` — gestión de animales en adopción.
+- `form-adoption` — formularios de solicitud de adopción.
+- `donations` — registro y gestión de donaciones.
+- `publications` — publicaciones de la plataforma.
+- `files` — carga y servido de imágenes.
 
-# watch mode
-$ npm run start:dev
+## Requisitos previos
 
-# production mode
-$ npm run start:prod
-```
+- Node.js 18+
+- Docker y Docker Compose
 
-## Test
+## Cómo ejecutarlo
 
 ```bash
-# unit tests
-$ npm run test
+# 1. Instalar dependencias
+npm install
 
-# e2e tests
-$ npm run test:e2e
+# 2. Crear el archivo .env a partir del ejemplo y completar los valores
+cp .env.example .env
 
-# test coverage
-$ npm run test:cov
+# 3. Levantar la base de datos PostgreSQL en Docker
+docker compose up -d
+
+# 4. Iniciar el servidor en modo desarrollo
+npm run start:dev
 ```
 
-## Support
+La API queda disponible en `http://localhost:3000` y la documentación Swagger en `http://localhost:3000/api`.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Variables de entorno (.env)
 
-## Stay in touch
+```
+DB_PASSWORD=
+DB_NAME=
+DB_HOST=localhost
+DB_PORT=5432
+JWT_SECRET=
+PORT=3000
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+> Nota: el archivo `.env` no debe subirse al repositorio. Usa `.env.example` como plantilla.
 
-## License
+## Frontend
 
-Nest is [MIT licensed](LICENSE).
+La aplicación móvil que consume esta API está en el repositorio del frontend de WoofFriend (Flutter).
